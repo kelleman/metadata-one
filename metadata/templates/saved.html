@@ -1,0 +1,251 @@
+{% extends "dashboardBase.html" %}
+
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="../../static/css/profile.css" />
+{% endblock %}
+
+{% block nav %}
+
+<div class="navigation">
+    <nav class="menu">
+        <a href="/">Home</a>
+        <a href="/about">About Us</a>
+        <a href="/viewMetadata">Extract Metadata</a>
+        <a href="/dashboard" class="active">Dashboard</a>
+    </nav>
+</div>
+
+{% endblock %}
+
+{% block mobilenav %}
+
+<ul class="sm-menu">
+    <li>
+        <img src="/static/images/home-2.svg" alt="">
+        <a href="/">Home</a>
+        <img id="arrow" src="/static/images/arrow-right-light.svg" alt="">
+    </li>
+
+    {% if user.is_authenticated %}
+    <li>
+        <img src="/static/images/data.svg" alt="">
+        <a href="/viewMetadata" class="active">Extract Metadata</a>
+        <img id="arrow" src="/static/images/arrow-right-light.svg" alt="">
+    </li>
+    <li class="sm-active">
+        <img src="/static/images/user-dark.png" alt="">
+        <a href="/dashboard">Dashboard</a>
+        <img id="arrow" class="dashboard-arrow" src="/static/images/arrow-right.svg" alt="">
+    </li>
+    <ul class="sm-profile-link-wrapper">
+
+        <li class="sm-profile-link">
+            <img src="../../static/images/user.png" alt="">
+            <a href="/dashboard">Account</a>
+        </li>
+        <li class="sm-profile-link sm-link-active">
+            <img src="../../static/images/data-black.svg" alt="">
+            <a href="{% url 'metadata:history' user.id %}">Saved Metadata</a>
+        </li>
+        <li class="sm-profile-link">
+            <img src="../../static/images/archive-tick.svg" alt="">
+            <a href="{% url 'metadata:saved_files' %}">Saved Files</a>
+        </li>
+    </ul>
+    {% endif %}
+    <li>
+        <img src="/static/images/people.svg" alt="">
+        <a href="/about">About Us</a>
+        <img id="arrow" src="/static/images/arrow-right-light.svg" alt="">
+    </li>
+</ul>
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<div class="profile-wrapper">
+
+    <div class="content-section">
+        <div class="media">
+            {% if user.profile.profile_pic %}
+            <img class="rounded-circle account-img" src="{{ user.profile.profile_pic.url }}" width="200" height="200" />
+            {% else %}
+            <img class="rounded-circle account-img" src="{% static 'metadata/images/default.jpg'%}" width="200"
+                height="200" />
+            {% endif %}
+        </div>
+        <a class="profile-edit" href="/update_picture">Edit Profile Picture</a>
+
+        <div class="profile-link">
+            <img src="../../static/images/user.png" alt="">
+            <a href="/dashboard">Account</a>
+        </div>
+        <div class="profile-link link-active">
+            <img src="../../static/images/data-black.svg" alt="">
+            <a href="{% url 'metadata:history' user.id %}">Saved Metadata</a>
+        </div>
+        <div class="profile-link">
+            <img src="../../static/images/archive-tick.svg" alt="">
+            <a href="/saved_files">Saved Files</a>
+        </div>
+        <div class="profile-sign-out">
+            <img src="/static/images/logout.svg" alt="">
+            <input id="signout-btn" type="button" value="SignOut">
+        </div>
+    </div>
+
+
+    <br>
+
+    <div class="form-wrapper" id="file-content_content">
+        <div class="head">
+            <h1>Saved Metadata</h1>
+            {% for message in messages %}
+            <h5>{{message}}</h5>
+            {% endfor %}
+            <!-- SHARE URL MODEL -->
+            
+            <div class="url-model">
+                <div class="model-txt">
+                    <img src="{% static 'images/tick-circle.png' %}" alt="">
+                    <div>
+                        <p>URL copied to clipboard</p>
+                    </div>
+                </div>
+                <img id="close-hamburger" src="{% static 'images/close-circle1.png' %}" alt="">
+            </div>
+
+        </div>
+
+        <script>
+      
+        </script>
+
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="">Date</th>
+                    <th colspan="3">File Name</th>
+                    <th colspan="4"></th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for i in history %}
+                {% if i.owner == user%}
+                <tr>
+                    <td colspan="2">{{i.created_at}}</td>
+                    <td colspan="2">{{i.name}}</td>
+                    <td><a href="{% url 'metadata:download_meta' i.id %}">Download</a></td>
+                    <td><a href="{% url 'metadata:delete_meta' i.id %}">Delete</a></td>
+                    <td><a href="{% url 'metadata:review' i.id %}">View</a></td>
+                    <td>
+                        <a id="share" data-id="{{i.id}}" data-user="{{user.id}}" data-value="{{i.name}}">Share</a>
+                        <input id="input" type="text">
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+<!-- MODEL -->
+<div class="sign-up-model">
+    <div class="sign-up-wrapper">
+        <img src="{% static 'images/icon-close.svg' %}" alt="">
+        <h5>Sign Out</h5>
+        <p>Are you sure you want to sign out?</p>
+        <div class="signout-model-btn">
+            <a href="{% url 'metadata:history' user.id %}">No</a>
+            <a href="/logout">Yes</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="sign-up-model">
+    <div class="sign-up-wrapper">
+        <img src="{% static 'images/icon-close.svg' %}" alt="">
+        <h5>Sign Out</h5>
+        <p>Are you sure you want to sign out?</p>
+        <div class="signout-model-btn">
+            <a href="{% url 'metadata:history' user.id %}">No</a>
+            <a href="/logout">Yes</a>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="url-model">
+    <div class="model-txt">
+        <img src="{% static 'images/tick-circle.png' %}" alt="">
+        <div>
+            <h5>Success</h5>
+            <p>URL copied to clipboard</p>
+        </div>
+    </div>
+    <img id="close-hamburger" src="{% static 'images/close-circle1.png' %}" alt="">
+</div> -->
+
+{% endblock %}
+
+
+
+{% block jsScript %}
+<script>
+    const signOutBtn = document.querySelector("#signout-btn")
+    const model = document.querySelector(".sign-up-model")
+    const closeIcon = document.querySelector(".sign-up-wrapper img")
+    const closeShareNotificationIcon = document.querySelector("#close-hamburger");
+    const urlModel = document.querySelector(".url-model")
+
+
+    signOutBtn.addEventListener("click", () => {
+        model.classList.toggle("show-model")
+    })
+    closeIcon.addEventListener("click", () => {
+        model.classList.remove("show-model")
+    })
+
+    const shareBtns = document.querySelectorAll("#share")
+    shareBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const id = btn.dataset.id
+            const user = btn.dataset.user
+        console.log("click")
+
+        urlModel.style.display = "flex"
+            console.log(copy(id, user))
+
+        })
+    })
+
+    closeShareNotificationIcon.addEventListener("click", () => {
+        urlModel.style.display = "none"
+    }) 
+
+
+    function copy(a, b) {
+        let copyText = document.querySelector("#input")
+        copyText.value = `www.deevr.zurifordummies.com/referral/${a}/${b}`
+        copyText.select();
+        document.execCommand('copy')
+        console.log('Copied Text')
+        return copyText
+    }
+
+</script>
+
+<script src="/static/javascript/savedFiles.js"></script>
+{% endblock %}

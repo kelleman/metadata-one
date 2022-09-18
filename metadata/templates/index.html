@@ -1,0 +1,328 @@
+{% extends "base.html" %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+{% endblock %}
+
+{% block nav %}
+
+<div class="navigation">
+    <nav class="menu">
+        <a href="/" class="active">Home</a>
+        <a href="/about">About Us</a>
+        {% if user.is_authenticated %}
+        <a href="/viewMetadata">Extract Metadata</a>
+        <a href="/dashboard">Dashboard</a>
+        {% endif %}
+    </nav>
+</div>
+
+{% endblock %}
+
+{% block mobilenav %}
+
+<ul class="sm-menu">
+    <li class="sm-active">
+        <img src="{% static 'images/home.svg' %}" alt="">
+        <a href="/">Home</a>
+        <img id="arrow" src="{% static 'images/arrow-right.svg' %}" alt="">
+    </li>
+
+    {% if user.is_authenticated %}
+    <li>
+        <img src="{% static 'images/data.svg' %}" alt="">
+        <a href="/viewMetadata" class="active">Extract Metadata</a>
+        <img id="arrow" src="{% static 'images/arrow-right-light.svg' %}" alt="">
+    </li>
+    <li>
+        <img src="{% static 'images/user-light.png' %}" alt="">
+        <a href="/dashboard">Dashboard</a>
+        <img id="arrow" class="dashboard-arrow" src="{% static 'images/arrow-right-light.svg' %}" alt="">
+    </li>
+    <ul class="sm-profile-link-wrapper">
+
+        <li class="sm-profile-link sm-link-active">
+            <img src="{% static 'images/user.png' %}" alt="">
+            <a href="/dashboard">Account</a>
+        </li>
+        <li class="sm-profile-link">
+            <img src="{% static 'images/data-black.svg' %}" alt="">
+            <a href="{% url 'metadata:history' user.id %}">Saved Metadata</a>
+        </li>
+        <li class="sm-profile-link">
+            <img src="{% static 'images/archive-tick.svg' %}" alt="">
+            <a href="{% url 'metadata:saved_files' %}">Saved Files</a>
+        </li>
+    </ul>
+    {% endif %}
+    <li>
+        <img src="{% static 'images/people.svg' %}" alt="">
+        <a href="/about">About Us</a>
+        <img id="arrow" src="{% static 'images/arrow-right-light.svg' %}" alt="">
+    </li>
+</ul>
+
+{% endblock %}
+
+
+{% block content %}
+
+<main>
+
+    <div class="section">
+        <div class="hero">
+            <div class="left-hero">
+                <h2 class="hero-head">Free Metadata Extraction Tool</h2>
+                <p class="hero-text">
+                    Easily fetch metadata information from all your favorite files with Deevr's metadata extraction
+                    tool.
+                    <br>
+                    <br>
+                    Download, share, export and embed.....
+                </p>
+
+                <button class="hero-btn">
+                    <img src="{% static 'images/cloud-plus-white.svg' %}" alt="" class="icon-hero">
+                    <a href="/viewMetadata">Upload File</a>
+                </button>
+            </div>
+
+            <div class="right-hero">
+                <img src="{% static 'images/Image group1a.png' %}" class="hero-img">
+            </div>
+        </div>
+    </div>
+
+    <!-- About/features -->
+
+    <div class="section">
+
+        <h2 class="general-head">Here's what you can do with Deevr</h2>
+
+        <div class="about-features">
+            <div class="about-items">
+                <img src="{% static 'images/Frame 62.png' %}" alt="" class="about-icon">
+                <h2 class="about-title">Download</h2>
+                <p class="about-txt">Download all your metadata information to your computer/mobile device</p>
+            </div>
+
+            <div class="about-items">
+                <img src="{% static 'images/Frame 63.png' %}" alt="" class="about-icon">
+                <h2 class="about-title">Export</h2>
+                <p class="about-txt">Export your metadata information in any format of choice</p>
+            </div>
+
+            <div class="about-items">
+                <img src="{% static 'images/Frame 64.png' %}" alt="" class="about-icon">
+                <h2 class="about-title">Save</h2>
+                <p class="about-txt">Save all your metadata information to your dashboard</p>
+            </div>
+
+            <div class="about-items">
+                <img src="{% static 'images/Frame 65.png' %}" alt="" class="about-icon">
+                <h2 class="about-title">Embed</h2>
+                <p class="about-txt">Embed extracted metadata information to any site</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="logo-section">
+
+        <h2 class="general-head">Some Of Our Partners</h2>
+
+        <div class="logo-gallery">
+
+            <div class="logos">
+                <img src="{% static 'images/logos_slack.png' %}" alt="" class="logo">
+                <img src="{% static 'images/Loom (logo — Colour).png' %}" alt="" class="logo">
+                <img src="{% static 'images/Asana (logo — Colour).png' %}" alt="" class="logo">
+                <img src="{% static 'images/Mosaic (logo — Colour).png' %}" alt="" class="logo">
+                <img src="{% static 'images/Vector (2).png' %}" alt="" class="logo">
+                <img src="{% static 'images/SpaceX (logo — Colour).png' %}" alt="" class="logo">
+                <img src="{% static 'images/Basecamp (logo — Colour).png' %}" alt="" class="logo">
+                <img src="{% static 'images/Microsoft (logo — Colour).png' %}" alt="" class="logo">
+                <img src="{% static 'images/Group 12.png' %}" alt="" class="logo">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Why Metadata -->
+
+    <div class="meta-section">
+
+        <div class="meta-inner">
+
+            <div class="left-meta">
+                <img src="{% static 'images/Image group2.png' %}" alt="" class="meta-img">
+            </div>
+
+            <div class="right-meta">
+                <h2 class="meta-head">Why Metadata?</h2>
+                <p class="meta-text">Metadata has various purposes, it enables data sets designed for a single
+                    purpose to be reused for other purposes and over the long term. With digital identification of
+                    files, you can find relevant resources such as how and when a document was created. It is also an
+                    effective means of organizing information.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="testimonial">
+        <div class="testimonial-heading">
+            <h2>User Testimonial</h2>
+            <p>Learn from others how Deevr makes getting information fast, seamless and easy.</p>
+        </div>
+
+        <div class="card-container">
+            <div class="card-wrapper">
+                <div class="testimonial-card">
+                    <div class="profile-img">
+                        <img src="{% static 'images/andrew.svg' %}" alt="">
+                        <h5>Andrew Scott</h5>
+                    </div>
+                    <p>Gettting access to information swiftly has been a great discovery for me.</p>
+                    <img src="{% static 'images/rating-5.svg' %}" alt="">
+                </div>
+                <div class="testimonial-card">
+                    <div class="profile-img">
+                        <img src="{% static 'images/williams.svg' %}" alt="">
+                        <h5>Williams Asuwaju</h5>
+                    </div>
+                    <p>With Deevr, I can access my files anyhwere, anytime in any format I prefer. It keeps me more
+                        organized.</p>
+                    <img src="{% static 'images/rating-5.svg' %}" alt="">
+                </div>
+                <div class="testimonial-card">
+                    <div class="profile-img">
+                        <img src="{% static 'images/tom.svg' %}" alt="">
+                        <h5>Tom Bobby</h5>
+                    </div>
+                    <p>The process is fast which helps me get my work done faster as well.</p>
+                    <img src="{% static 'images/rating-3.svg' %}" alt="">
+                </div>
+                <div class="testimonial-card">
+                    <div class="profile-img">
+                        <img src="{% static 'images/ju-son.svg' %}" alt="">
+                        <h5>Ju Son</h5>
+                    </div>
+                    <p>
+                        One of the best metadata extraction tools I’ve tried. The upload is fast and the quality of
+                        download is great.
+                    </p>
+                    <img src="{% static 'images/ratin-4.svg' %}" alt="">
+                </div>
+                <div class="testimonial-card">
+                    <div class="profile-img">
+                        <img src="{% static 'images/adekunle.svg' %}" alt="">
+                        <h5>Adekunle Smith</h5>
+                    </div>
+                    <p>Deevr makes my work easy. Whatever information I need to create my blog posts and make references
+                        is provided speedily.</p>
+                    <img src="{% static 'images/rating-5.svg' %}" alt="">
+                </div>
+                <div class="testimonial-card">
+                    <div class="profile-img">
+                        <img src="{% static 'images/joe.svg' %}" alt="">
+                        <h5>Joe Cole</h5>
+                    </div>
+                    <p>With Deevr I don’t have to worry about my files getting lost because I can retrieve my documents
+                        and the data anytimeI
+                        need it.</p>
+                    <img src="{% static 'images/ratin-4.svg' %}" alt="">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="general-head" id="faq">FAQs</h2>
+
+        <div class="toggle-wrapper">
+            <button class="toggle">
+                What are metadata and why are they important?
+                <img src="{% static 'images/add.svg' %}" alt="" class="toggle-icon">
+            </button>
+            <div class="toggle-content">
+                <p>
+                    Metadata is the information about other data or file but not the content of the files.
+                    Metadata is the story behind a data. it tells you how how the image files were created, where
+                    and when and how it was edited.
+                </p>
+            </div>
+        </div>
+
+        <div class="toggle-wrapper">
+            <button class="toggle">
+                What is the kind of files are supported?
+                <img src="{% static 'images/add.svg' %}" alt="" class="toggle-icon">
+            </button>
+            <div class="toggle-content">
+                <p>
+                    Supported files are Images, audio, video, json, csv and pdf files
+                </p>
+            </div>
+        </div>
+
+        <div class="toggle-wrapper">
+            <button class="toggle">
+                How can the metadata be downloaded on my device?
+                <img src="{% static 'images/add.svg' %}" alt="" class="toggle-icon">
+            </button>
+            <div class="toggle-content">
+                <p>
+                    All your saved metadata and file are accessable for download on your dashboard, if your files are
+                    less
+                    than 20mb it is saved automatically and you can access it on your dashboard. it is required that you
+                    are a
+                    registered user to use the platform.
+                </p>
+            </div>
+        </div>
+
+        <div class="toggle-wrapper">
+            <button class="toggle">
+                Can I access previous history of extracted metadata?
+                <img src="{% static 'images/add.svg' %}" alt="" class="toggle-icon">
+            </button>
+            <div class="toggle-content">
+                <p>
+                    Yes you can. when the result of the metadata is displayed there is a save button below
+                    the result where you can save the metadata. and you can access the history on the saved
+                    metadata link on your dashboard
+                </p>
+            </div>
+        </div>
+
+        <div class="toggle-wrapper">
+            <button class="toggle">
+                What is the standard size of the uploaded files?
+                <img src="{% static 'images/add.svg' %}" alt="" class="toggle-icon">
+            </button>
+            <div class="toggle-content">
+                <p>
+                    The maximum standard file upload is 50mb
+                </p>
+            </div>
+        </div>
+
+        <div class="faq-btn">
+            <button class="nav-btn-solid" id="faqbtn">
+                {% if user.is_authenticated %}
+                <a href="/viewMetadata">Get Started</a>
+                {% else %}
+                <a href="/signup">Get Started</a>
+                {% endif %}
+            </button>
+        </div>
+    </div>
+
+</main>
+
+<script src="{% static 'javascript/script.js' %}"></script>
+
+
+{% endblock %}

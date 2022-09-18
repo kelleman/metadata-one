@@ -1,0 +1,122 @@
+@import url("style.css");
+
+
+
+
+.hero-head{
+    font-size: 2.4rem;
+    line-height: ;
+}
+
+span {
+    color: var(--blue);
+}
+
+
+.right-hero {
+    align-items: flex-end;
+    text-align: end;
+    justify-content: end;
+}
+
+.extract {
+    width: 450px;
+    margin: auto;
+    border: 2px dashed var(--blue);
+    border-radius: 10px;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: center;
+    text-align: center;
+    padding: 50px;
+}
+
+.file-options{
+    display: flex;
+    flex-direction: column;
+}
+
+.img-svg {
+    width: 110px;
+}
+
+.upload-txt {
+    font-size: 25px;
+}
+
+.up, .down {
+    padding: 20px 0;
+}
+
+.headline{
+    text-align: center;
+    font-size: 40px;
+    padding-top: 150px;
+}
+
+.formats{
+    display: flex;
+    width: 1240px;
+    height: auto;
+    margin: 0 auto;
+    padding: 0 auto;
+    justify-content: space-between;
+    vertical-align: middle;
+    align-items: center;
+    padding: 70px 40px;
+}
+
+.card{
+    background-color: var(--grey);
+    width: 250px;
+    border-radius: 10px;
+    padding: 0;
+    box-shadow: 0px 0px 50px 0px #cccccc;
+    text-align: center;
+}
+
+.icon-card {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+h3 {
+    font-size: 28px;
+}
+
+
+.card-text {
+    font-size: 19px;
+    padding: 20px 0;
+}
+
+.card-png {
+    width: 100px;
+    padding: 20px 0;
+}
+
+
+
+
+
+
+
+
+
+/* footer{
+    background-color: grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+}
+.right{
+    border-color: #3a86ff;
+    border-style: dashed;
+    border-width: 2px;
+    float: right;
+}
+.left{
+    padding-top: 20px;
+} */

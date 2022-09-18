@@ -1,0 +1,156 @@
+{% extends "dashboardBase.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="../../static/css/profile.css" />
+{% endblock %}
+
+{% block nav %}
+
+<div class="navigation">
+    <nav class="menu">
+        <a href="/">Home</a>
+        <a href="/about">About Us</a>
+        <a href="/viewMetadata">Extract Metadata</a>
+        <a href="/dashboard" class="active">Dashboard</a>
+    </nav>
+</div>
+
+{% endblock %}
+
+{% load static %}
+
+{% block mobilenav %}
+
+<ul class="sm-menu">
+    <li>
+        <img src="/static/images/home-2.svg" alt="">
+        <a href="/">Home</a>
+        <img id="arrow" src="/static/images/arrow-right-light.svg" alt="">
+    </li>
+
+    {% if user.is_authenticated %}
+    <li>
+        <img src="/static/images/data.svg" alt="">
+        <a href="/viewMetadata" class="active">Extract Metadata</a>
+        <img id="arrow" src="/static/images/arrow-right-light.svg" alt="">
+    </li>
+    <li class="sm-active">
+        <img src="/static/images/user-dark.png" alt="">
+        <a href="/dashboard">Dashboard</a>
+        <img id="arrow" class="dashboard-arrow" src="/static/images/arrow-right.svg" alt="">
+    </li>
+    <ul class="sm-profile-link-wrapper">
+
+        <li class="sm-profile-link">
+            <img src="/static/images/user.png" alt="">
+            <a href="/dashboard">Account</a>
+        </li>
+        <li class="sm-profile-link ">
+            <img src="../../static/images/data.svg" alt="">
+            <a href="{% url 'metadata:history' user.id %}">Saved Metadata</a>
+        </li>
+        <li class="sm-profile-link sm-link-active">
+            <img src="../../static/images/archive-tick.svg" alt="">
+            <a href="{% url 'metadata:saved_files' %}">Saved Files</a>
+        </li>
+    </ul>
+    {% endif %}
+    <li>
+        <img src="/static/images/people.svg" alt="">
+        <a href="/about">About Us</a>
+        <img id="arrow" src="/static/images/arrow-right-light.svg" alt="">
+    </li>
+</ul>
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<div class="profile-wrapper">
+    <div class="content-section">
+        <div class="media">
+            {% if user.profile.profile_pic %}
+            <img class="rounded-circle account-img" src="{{ user.profile.profile_pic.url }}" width="200" height="200" />
+            {% else %}
+            <img class="rounded-circle account-img" src="{% static 'metadata/images/default.jpg'%}" width="200"
+                height="200" />
+            {% endif %}
+        </div>
+        <a class="profile-edit" href="/update_picture">Edit Profile Picture</a>
+
+        <div class="profile-link">
+            <img src="../../static/images/user.png" alt="">
+            <a href="/dashboard">Account</a>
+        </div>
+        <div class="profile-link">
+            <img src="../../static/images/data.svg" alt="">
+            <a href="{% url 'metadata:history' user.id %}">Saved Metadata</a>
+        </div>
+        <div class="profile-link link-active">
+            <img src="../../static/images/archive-tick.svg" alt="">
+            <a href="/saved_files">Saved Files</a>
+        </div>
+        <div class="profile-sign-out">
+            <img src="/static/images/logout.svg" alt="sign out button">
+            <input id="signout-btn" type="button" value="SignOut">
+        </div>
+    </div>
+
+    <div class="form-wrapper" id="file-content_content">
+        <div class="head">
+            <h1>Saved Files</h1>
+            {% for message in messages %}
+            <h5>{{message}}</h5>
+            {% endfor %}
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date Added</th>
+                    <th>File Name</th>
+                    <th>Download</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for i in files %}
+                {% if i.owner == user%}
+                <tr>
+                    <td>{{i.created_at}}</td>
+                    <td>{{i.file_name}}</td>
+                    <td><a href="{{i.uploaded_file.url}}" download="{{i.uploaded_file.url}}">Download</a></td>
+                    <td><a href="delete/{{i.id}}">Delete</a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- MODEL -->
+<div class="sign-up-model">
+    <div class="sign-up-wrapper">
+        <img src="{% static 'images/icon-close.svg' %}" alt="">
+        <h5>Sign Out</h5>
+        <p>Are you sure you want to sign out?</p>
+        <div class="signout-model-btn">
+            <a href="/dashboard">No</a>
+            <a href="/logout">Yes</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block jsScript %}
+<script src="../../static/javascript/savedFiles.js"></script>
+
+
+{% endblock %}

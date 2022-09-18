@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="../../static/css/result.css" />" />
+{% endblock %}
+
+{% block nav %}
+
+<div class="navigation">
+	<nav class="menu">
+		<a href="/">Home</a>
+		<a href="/about">About Us</a>
+	</nav>
+</div>
+
+{% endblock %}
+
+{% block mobilenav %}
+
+<ul class="sm-menu">
+	<li>
+		<img src="{% static 'images/home-2.svg' %}" alt="">
+		<a href="/">Home</a>
+		<img id="arrow" src="{% static 'images/arrow-right-light.svg' %}" alt="">
+	</li>
+	<li>
+		<img src="{% static 'images/people.svg' %}" alt="">
+		<a href="/about">About Us</a>
+		<img id="arrow" src="{% static 'images/arrow-right-light.svg' %}" alt="">
+	</li>
+</ul>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<div style="">
+	<div class="metadata-heading">
+		<h1>Metadata Result</h1>
+		<p>(Files less than 20mb will be stored in your file history)</p>
+	</div>
+
+	<table style="">
+		<thead>
+			<tr>
+				<th colspan="2">MetaData</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for data in metadata %}
+			<tr>
+				<td style="padding: 0.3rem 1rem">{{data.tag_name}}</td>
+				<td style="padding: 0.3rem 1rem">{{data.tag_value}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<div class="btn">
+
+		<a href="/download">Download Metadata</a>
+		<a href="/login">Save Meta Result</a>
+	</div>
+</div>
+{% endblock %}
